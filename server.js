@@ -11,6 +11,8 @@ app.use(express.json());
 
 app.post("/api/token", async (req, res) => {
 	console.info("API token endpoint hit");
+
+	console.info("Fetch access token");
 	// Exchange the code for an access_token
 	const response = await fetch(`https://discord.com/api/oauth2/token`, {
 		method: "POST",
@@ -25,9 +27,11 @@ app.post("/api/token", async (req, res) => {
 		}),
 	});
 
+	console.info("Extract token from response");
 	// Retrieve the access_token from the response
 	const { access_token } = await response.json();
 
+	console.info("Return access token to our client");
 	// Return the access_token to our client as { access_token: "..."}
 	res.send({access_token});
 });
