@@ -36,7 +36,7 @@ app.post("/api/token", async (req, res) => {
 app.get("/health", (req, res) => {
 	console.info("iHealth endpoint hit");
 	console.log("lHealth endpoint hit");
-	res.status(200).send('Such health')
+	res.status(200)
 });
 
 app.listen(port, () => {
