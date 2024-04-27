@@ -10,17 +10,18 @@ const port = 3001;
 app.use(express.json());
 
 app.post("/api/token", async (req, res) => {
+	console.info("API token endpoint hit");
 	// Exchange the code for an access_token
 	const response = await fetch(`https://discord.com/api/oauth2/token`, {
 		method: "POST",
 		headers: {
-		"Content-Type": "application/x-www-form-urlencoded",
+			"Content-Type": "application/x-www-form-urlencoded",
 		},
 		body: new URLSearchParams({
-		client_id: process.env.VITE_DISCORD_CLIENT_ID,
-		client_secret: process.env.DISCORD_CLIENT_SECRET,
-		grant_type: "authorization_code",
-		code: req.body.code,
+			client_id: process.env.VITE_DISCORD_CLIENT_ID,
+			client_secret: process.env.DISCORD_CLIENT_SECRET,
+			grant_type: "authorization_code",
+			code: req.body.code,
 		}),
 	});
 
@@ -33,9 +34,11 @@ app.post("/api/token", async (req, res) => {
 
 // ENDPOINT: Health check
 app.get("/health", (req, res) => {
+	console.info("Health endpoint hit");
 	res.status(200).json({ status: 'ok' });
 });
 
 app.listen(port, () => {
+	console.info(`Server listening on port: ${port}`);
 	console.log(`Server listening at http://localhost:${port}`);
 });
