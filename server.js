@@ -56,12 +56,11 @@ app.post("/api/token", async (req, res) => {
 
 // ENDPOINT: Health check
 app.get("/health", (req, res) => {
-	console.info("iHealth endpoint hit");
-	console.log("lHealth endpoint hit");
-	res.status(200).send("such health")
+	console.info("Health endpoint hit");
+	res.json({ ok: true });
 });
 
+// Listen 
 app.listen(port, () => {
 	console.info(`Server listening on port: ${port}`);
-	console.log(`Server listening at http://localhost:${port}`);
 });
