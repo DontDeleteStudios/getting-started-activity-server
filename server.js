@@ -1,7 +1,7 @@
 import express from "express";
 import dotenv from "dotenv";
 import fetch from "node-fetch";
-import cors from "cors";
+// import cors from "cors";
 
 dotenv.config({ path: "./.env" }); // TODO: Remove denesting for PROD
 
@@ -11,13 +11,21 @@ const port = 3001;
 // Allow express to parse JSON bodies
 app.use(express.json());
 
-// CORS options
-const corsOptions = {
-	origin: ["https://discordsays.com", "https://getting-started-activity-client.vercel.app", "http://localhost:3000", "http://localhost:5173"], // Replace with the allowed origins
-};
+// // CORS options
+// const corsOptions = {
+// 	origin: ["https://discordsays.com", "https://getting-started-activity-client.vercel.app", "http://localhost:3000", "http://localhost:5173"], // Replace with the allowed origins
+// };
   
 // Apply CORS middleware with options
-app.use(cors(corsOptions));
+// app.use(cors(corsOptions));
+
+// Set CORS headers for all routes
+app.use((req, res, next) => {
+	res.header("Access-Control-Allow-Origin", "*"); // Update to match the domain you will make the request from
+	res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+	res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+	next();
+})
 
 app.post("/api/token", async (req, res) => {
 	console.info("API token endpoint hit");
