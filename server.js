@@ -54,10 +54,14 @@ app.post("/api/token", async (req, res) => {
 	res.send({access_token});
 });
 
-// ENDPOINT: Health check
 app.get("/health", (req, res) => {
 	console.info("Health endpoint hit");
-	res.json({ ok: true });
+	try {
+	  	res.json({ ok: true });
+	} catch (err) {
+		console.error("Error in /health route:", err);
+		res.status(500).json({ error: "Internal Server Error" });
+	}
 });
 
 // Listen 
