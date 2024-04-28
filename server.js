@@ -1,6 +1,7 @@
 import express from "express";
 import dotenv from "dotenv";
 import fetch from "node-fetch";
+import cors from "cors";
 dotenv.config({ path: "./.env" }); // TODO: Remove denesting for PROD
 
 const app = express();
@@ -8,6 +9,9 @@ const port = 3001;
 
 // Allow express to parse JSON bodies
 app.use(express.json());
+
+// const whitelist = ['https://discordsays.com/'];
+app.use(cors());
 
 app.post("/api/token", async (req, res) => {
 	console.info("API token endpoint hit");
